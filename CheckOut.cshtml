@@ -1,0 +1,101 @@
+﻿@using NhaSachHuflit.Models;
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    if (Session["Cart"] != null)
+    {
+
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Sub Total</th>
+                <th></th>
+            </tr>
+
+            @foreach (var cart in (List<Cart>)Session["Cart"])
+            {
+                <tr>
+                    <td>@cart.Sach.tensp</td>
+                    <td>@cart.Sach.gia</td>
+                    <td>
+                        <input type="text" name="quantity" id="quantity" value="@cart.Quantity" readonly />
+
+                    </td>
+                    <td>@(string.Format("{0:N0}", cart.Sach.gia * cart.Quantity))</td>
+
+                </tr>
+            }@*End of foreach cart*@
+            <tr>
+                <td colspan="3">Total:</td>
+                <td>
+                    @{
+                        List<Cart> temp = (List<Cart>)Session["Cart"];
+                        var total = String.Format("{0:N0}", temp.Sum(x => x.Quantity * x.Sach.gia));
+                        @total
+
+                    }
+                </td>
+            </tr>
+        </table>
+
+    }
+    else
+    {
+        < h4 > Không có sản phẩm nào trong giỏ hàng!!! </ h4 >
+    }
+}@*End of using form*@
+@*End of if session*@
+
+<br />
+@using (Html.BeginForm("ProcessOrder", "ShoppingCart", FormMethod.Post, new { id = "customer-form" }))
+{
+    <table>
+        <tr>
+            <td colspan="3" style="text-align:center;"><b>Customer's Information</b></td>
+        </tr>
+        <tr>
+            <td>Customer Name:</td>
+            <td><input type="text" name="cusName" /></td>
+        </tr>
+        <tr>
+            <td>Customer Phone:</td>
+            <td><input type="text" name="cusPhone" /></td>
+        </tr>
+        <tr>
+            <td>Customer Email:</td>
+            <td><input type="text" name="cusEmail" /></td>
+        </tr>
+        <tr>
+            <td>Customer Address:</td>
+            <td><input type="text" name="cusAddress" /></td>
+        </tr>
+        <tr>
+            <td colspan="3"><input type="submit" value="Process Order" /></td>
+        </tr>
+    </table>
+}
+
+<script type="text/javascript">
+    $("#customer-form").validate({
+        rules: {
+            cusName: {
+                required: true
+            },
+            cusPhone: {
+                required: true
+            },
+            cusEmail: {
+                required: true
+            },
+            cusAddress: {
+                required: true
+            },
+        }
+    });
+</script>

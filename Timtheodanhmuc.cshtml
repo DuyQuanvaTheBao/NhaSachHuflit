@@ -1,0 +1,21 @@
+﻿@model IEnumerable<NhaSachHuflit.Models.Sach>
+
+@{
+    ViewBag.Title = "Timtheodanhmuc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="row text-center">
+        @foreach (var dt in Model)
+        {
+            <div class="col-sm-3">
+                <div class="thumbnail">
+                    <a href="@Url.Action("Details", "Home" , new { id=dt.id })"><img src="~/Hinh/@dt.hinh" style="width:100px;height:100px"></a>
+                    <p><strong>@dt.tensp</strong></p>
+                    <button class="btn" data-toggle="modal" data-target="#myModal">Giá: @dt.gia VNĐ</button>
+                    <a href="@Url.Action("OrderNow", "ShoppingCart", new { id = dt.id }, null)"><img alt="" src="https://cdn.nhanh.vn/cdn/store1/40602/psCT/20200408/20943673/nut_b_m_d_ng.gif" style="width:120px;height:50px;"></a>
+
+                </div>
+            </div>
+        }
+    </div>
