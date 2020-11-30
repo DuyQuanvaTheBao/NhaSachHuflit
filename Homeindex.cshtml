@@ -1,0 +1,194 @@
+﻿
+@model IEnumerable<NhaSachHuflit.Models.Sach>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<div class="row">
+    <div class="col-sm-12">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            @*Indicators*@
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+
+            @*Wrapper for slides*@
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="~/Hinh/bia1.jpg" style="width:100%;height:300px" alt="Sach1">
+                </div>
+
+                <div class="item">
+                    <img src="~/Hinh/bia2.jpg" style="width:100%;height:300px" alt="Sach2">
+                </div>
+
+                <div class="item">
+                    <img src="~/Hinh/bia3.jpg" style="width:100%;height:300px" alt="Sach3">
+                </div>
+            </div>
+
+            @*Left and right controls*@
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+    </div>
+    <div class="col-sm-12"><label style="margin-left:390px">Sách nổi bật</label></div>
+    <div class="col-sm-12">
+        <a class="nav navbar-nav navbar-left">Sản phẩm mới</a>
+        <a class="nav navbar-nav navbar-right" style="margin-right:7px">Xem thêm</a>
+    </div>
+
+    <div class="row text-center">
+        @foreach (var dt in Model)
+        {
+            <div class="col-sm-3">
+                <div class="thumbnail">
+                    <a href="@Url.Action("Details", "Home" , new { id=dt.id })"><img src="~/Hinh/@dt.hinh" style="width:100px;height:100px"></a>
+                    <p><strong>@dt.tensp</strong></p>
+                    <button class="btn" data-toggle="modal" data-target="#myModal">Giá: @dt.gia VNĐ</button>
+                    <a href="@Url.Action("OrderNow", "ShoppingCart", new { id = dt.id }, null)"><img alt="" src="https://cdn.nhanh.vn/cdn/store1/40602/psCT/20200408/20943673/nut_b_m_d_ng.gif" style="width:120px;height:50px;"></a>
+
+                </div>
+            </div>
+        }
+    </div>
+    <ul class="pagination">
+        @for (int i = 0; i <= ViewBag.Dem; i++)
+        {
+            <li>
+
+                <a href="@Url.Action("Index","Home",new { page =i})">@(i+1)</a>
+            </li>
+        }
+    </ul>
+
+    @*<form method="post" action="/Home/Index2">
+            <div class="row text-center">
+                @foreach (var dt in NhaSachHuflit.Models.SachBanChay)
+                {
+                    <div class="col-sm-3">
+                        <div class="thumbnail">
+                            <a href="@Url.Action("Details2", "Home" , new { id=dt.id })"><img src="~/Hinh/@dt.HinhAnh" style="width:100px;height:100px"></a>
+                            <p><strong>@dt.TenSach</strong></p>
+                            <button class="btn" data-toggle="modal" data-target="#myModal">Giá: @dt.GiaBan VNĐ</button>
+                            <a href="@Url.Action("OrderNow", "ShoppingCart", new { id = dt.MaSach }, null)"><img alt="" src="https://cdn.nhanh.vn/cdn/store1/40602/psCT/20200408/20943673/nut_b_m_d_ng.gif" style="width:120px;height:50px;"></a>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </form>*@
+    @*<div class="row text-center">
+            @foreach (var dt in Model)
+            {
+                <div class="col-sm-3">
+                    <div class="thumbnail">
+                        <a href="@Url.Action("Details2", "Home" , new { id=dt.id })"><img src="~/Hinh/@dt.HinhAnh" style="width:100px;height:100px"></a>
+                        <p><strong>@dt.TenSach</strong></p>
+                        <button class="btn" data-toggle="modal" data-target="#myModal">Giá: @dt.GiaBan VNĐ</button>
+                        <a href="@Url.Action("OrderNow", "ShoppingCart", new { id = dt.MaSach }, null)"><img alt="" src="https://cdn.nhanh.vn/cdn/store1/40602/psCT/20200408/20943673/nut_b_m_d_ng.gif" style="width:120px;height:50px;"></a>
+
+                    </div>
+                </div>
+            }
+        </div>*@
+
+
+
+
+
+    <div class="col-sm-12" style="background-image:url('../../Hinh/biasach4.jpg')">
+        <div class="col-sm-4"><img src="~/Hinh/iconsach2.jpg" style="width:80%;height:80%" /></div>
+        <div class="col-sm-8">
+            <br /> <br /> <br />
+            <h2 style="color:aliceblue">Từ cuốn sách nhỏ đến thế giới lớn</h2>
+
+        </div>
+    </div>
+
+    <br />
+    <div class="col-sm-12"><label style="margin-left:390px;font-size:30px">Tác giả</label></div>
+    <div class="col-sm-12">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            @*Indicators*@
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+
+            @*Wrapper for slides*@
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="col-sm-6">
+                        <img src="~/Hinh/tacgiatohoai.jpg" style="width:100%;height:300px" alt="Sach1">
+                    </div>
+                    <div class="col-sm-6" >
+                        <h2 style="font-size:30px"> Tô Hoài</h2>
+                        <h4 style="font-size:20px">Tác giả của:</h4>
+                        <h5 style="font-size:17px">Truyện đồng thoại Tô Hoài Dế mèn phiêu lưu ký (Bản viết tay), Giăng thể, O chuột, Quê người, Nhà nghèo, Cỏ dại, Núi cứu quốc, Xuống làng, Đại đội Thắng Bình, Truyện Tây Bắc</h5>
+                        <h6>...</h6>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="col-sm-6">
+                        <img src="~/Hinh/tacgiahuycan.jpg" style="width:100%;height:300px" alt="Sach1">
+                    </div>
+                    <div class="col-sm-6">
+                        <h2 style="font-size:30px"> Huy Cận</h2>
+                        <h4 style="font-size:20px">Tác giả của:</h4>
+                        <h5 style="font-size:17px">Huy Cận tên thật là Cù Huy Cận, sinh ngày 31-5-1919 tại xã Ân Phú, huyện Hương Sơn, tỉnh Hà Tĩnh (nay là huyện Ðức Thọ, tỉnh Hà Tĩnh). Bố là nhà nho, đậu tam trường, làm hương sư, sau về quê dạy chữ Hán. Mẹ là một cô gái ở vùng quê có nghề dệt lụa truyền thống (xã Tùng Ảnh, huyện Ðức Thọ, tỉnh Hà Tĩnh). Cả hai đều yêu văn chương và rất thuộc truyện Kiều.</h5>
+                        <h6>...</h6>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="col-sm-6">
+                        <img src="~/Hinh/tacgianna.jpg" style="width:100%;height:300px" alt="Sach1">
+                    </div>
+                    <div class="col-sm-6">
+                        <h2 style="font-size:30px"> Nguyễn Nhật Ánh </h2>
+                        <h4 style="font-size:20px">Tác giả của:</h4>
+                        <h5 style="font-size:17px">
+                            Nguyễn Nhật Ánh sinh ngày 7 tháng 5 năm 1955 tại tỉnh Quảng Nam.  Ông được coi là một trong những nhà văn thành công nhất viết sách cho tuổi thơ, tuồi mới lớn với hơn 100 tác phẩm các thể loại. Trước khi trở thành nhà văn nổi tiếng, Nguyễn Nhật Ánh từng có thời gian đi dạy học, viết báo với nhiều bút danh như Chu Đình Ngạn, Lê Duy Cật, Đông Phương Sóc, Sóc Phương Đông
+                        </h5>
+                        <h6>...</h6>
+                    </div>
+                </div>
+            </div>
+
+            @*Left and right controls*@
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+    </div>
+
+            </div>
+        
+
+
+
